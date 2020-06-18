@@ -1,7 +1,7 @@
 package com.lybarger.jakob.USCoronavirusData.models;
 
 
-public class LocationData {
+public class ConfirmedLocationData {
 
     private String countyAndState;
     private int totalCasesReported;

@@ -1,6 +1,6 @@
 package com.lybarger.jakob.USCoronavirusData.services;
 
-import com.lybarger.jakob.USCoronavirusData.models.LocationData;
+import com.lybarger.jakob.USCoronavirusData.models.ConfirmedLocationData;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,20 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class VirusDataService {
+public class ConfirmedCasesDataService {
 
     private static final String VIRUS_DATA = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv";
 
-    private List<LocationData> allData = new ArrayList<>();
+    private List<ConfirmedLocationData> allData = new ArrayList<>();
 
-    public List<LocationData> getAllData() {
+    public List<ConfirmedLocationData> getAllData() {
         return allData;
     }
 
     @PostConstruct
     @Scheduled(cron = "* * 1 * * *") // Update the web page once per day
     public void getVirusData() throws IOException, InterruptedException {
-        List<LocationData> newData = new ArrayList<>();
+        List<ConfirmedLocationData> newData = new ArrayList<>();
 
         // Create an HTTP request to get the data from the CSV record brought to by the link
         HttpClient client = HttpClient.newHttpClient();
@@ -41,7 +41,7 @@ public class VirusDataService {
         StringReader reader = new StringReader(response.body());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
         for(CSVRecord record : records) {
-            LocationData locationData = new LocationData();
+            ConfirmedLocationData locationData = new ConfirmedLocationData();
             locationData.setCountyAndState(record.get("Combined_Key"));
             locationData.setTotalCasesReported(Integer.parseInt(record.get(record.size() - 1)));
             locationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 2)));
