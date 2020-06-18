@@ -28,22 +28,25 @@ public class VirusDataService {
     }
 
     @PostConstruct
-    @Scheduled(cron = "* * 1 * * *")
+    @Scheduled(cron = "* * 1 * * *") // Update the web page once per day
     public void getVirusData() throws IOException, InterruptedException {
         List<LocationData> newData = new ArrayList<>();
 
+        // Create an HTTP request to get the data from the CSV record brought to by the link
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(VIRUS_DATA)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+        // Create a reader and iterate through the CSV record and create location data objects out of the data
         StringReader reader = new StringReader(response.body());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
         for(CSVRecord record : records) {
             LocationData locationData = new LocationData();
             locationData.setCountyAndState(record.get("Combined_Key"));
             locationData.setTotalCasesReported(Integer.parseInt(record.get(record.size() - 1)));
+            locationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 2)));
             newData.add(locationData);
         }
-        this.allData = newData;
+        this.allData = newData; // Set the global list equal to the local list
     }
 }

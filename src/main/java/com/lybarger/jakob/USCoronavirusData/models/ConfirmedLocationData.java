@@ -5,6 +5,15 @@ public class LocationData {
 
     private String countyAndState;
     private int totalCasesReported;
+    private int currentAndPrevDiff;
+
+    public int getCurrentAndPrevDiff() {
+        return currentAndPrevDiff;
+    }
+
+    public void setCurrentAndPrevDiff(int prevDayTotal) {
+        this.currentAndPrevDiff = totalCasesReported - prevDayTotal;
+    }
 
     public String getCountyAndState() {
         return countyAndState;

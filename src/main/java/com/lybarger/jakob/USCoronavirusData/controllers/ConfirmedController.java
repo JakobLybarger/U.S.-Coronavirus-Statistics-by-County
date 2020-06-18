@@ -19,8 +19,10 @@ public class HomePageController {
     public String home(Model model) {
         List<LocationData> allData = virusDataService.getAllData();
         int totalNewCases = allData.stream().mapToInt(LocationData::getTotalCasesReported).sum();
+        int todayYesterdayDiff = allData.stream().mapToInt(LocationData::getCurrentAndPrevDiff).sum();
         System.out.println(totalNewCases);
         model.addAttribute("totalNewCases", totalNewCases);
+        model.addAttribute("todayYesterdayDiff", todayYesterdayDiff);
         model.addAttribute("locationData", virusDataService.getAllData());
         return "home";
     }
