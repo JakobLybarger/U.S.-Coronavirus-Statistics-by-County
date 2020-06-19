@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http:/>/www.thmeleaf.org">
+
+    <head>
+        <title>U.S. Coronavirus Deaths by County</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 style="text-align:center">U.S Coronavirus Deaths by County</h1>
+
+            <div class="jumbotron">
+                <h1 class="display-4" style="text-align:center" th:text="${totalDeaths}"></h1>
+                <p class="lead" style="text-align:center">Total deaths reported as of today</p>
+                <hr class="my-4">
+                <h1 class="display-4" style="text-align:center" th:text="${prevAndCurDiff}"></h1>
+                <p class="lead" style="text-align:center">New deaths reported since previous day</p>
+            </div>
+
+            <table class="table table-sm table-hover">
+                <tr>
+                    <th style="text-align:center">County, State</th>
+                    <th style="text-align:center">Total Deaths Reported</th>
+                    <th style="text-align:center">New Deaths Today</th>
+                </tr>
+                <tr th:each="data : ${deathData}">
+                    <td style="text-align:center" th:text="${data.countyAndState}"></td>
+                    <td style="text-align:center" th:text="${data.totalDeaths}">0</td>
+                    <td style="text-align:center" th:text="${data.currentAndPrevDiff}">0</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
