@@ -15,8 +15,8 @@ public class ConfirmedController {
     @Autowired
     ConfirmedCasesDataService virusDataService;
 
-    @GetMapping("/ConfirmedCases")
-    public String ConfirmedCases(Model model) {
+    @GetMapping("/Cases")
+    public String confirmedCases(Model model) {
         List<ConfirmedLocationData> allData = virusDataService.getAllData();
         int totalNewCases = allData.stream().mapToInt(ConfirmedLocationData::getTotalCasesReported).sum();
         int todayYesterdayDiff = allData.stream().mapToInt(ConfirmedLocationData::getCurrentAndPrevDiff).sum();

@@ -3,14 +3,14 @@
 <html xmlns:th="http:/>/www.thmeleaf.org">
 
     <head>
-        <title>U.S. Coronavirus Statistics by County</title>
+        <title>U.S. Coronavirus Confirmed Cases by County</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     </head>
 
     <body>
         <div class="container">
-            <h1 style="text-align:center">U.S. Coronavirus Statistics by County</h1>
+            <h1 style="text-align:center">U.S. Coronavirus Confirmed Cases by County</h1>
 
             <div class="jumbotron">
                 <h1 class="display-4" style="text-align:center" th:text="${totalNewCases}"></h1>
@@ -19,29 +19,17 @@
                 <h1 class="display-4" style="text-align:center" th:text="${todayYesterdayDiff}"></h1>
                 <p class="lead" style="text-align:center">New cases reported since previous day</p>
             </div>
-<!--            <div class="jumbotron text-center hoverable p-4">-->
-<!--                <div class="row">-->
-<!--                    <div class="col">-->
-<!--                        <img src="https://www.google.com/search?q=coronavirus&sxsrf=ALeKk02PAozI26CuM_xLZ3cqxTy5dSeYVQ:1592460388570&source=lnms&tbm=isch&sa=X&ved=2ahUKEwig6p2e2YrqAhUIOq0KHcdEAzsQ_AUoA3oECCQQBQ&biw=1848&bih=949#imgrc=S9QZWeHxs70BwM" width="100" height="100">-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        <h1 class="display-4" style="text-align:center" th:text="${totalNewCases}"></h1>-->
-<!--                        <p class="lead" style="text-align:center">Total reported cases as of today</p>-->
-<!--                        <hr class="my-4">-->
-<!--                        <h1 class="display-4" style="text-align:center" th:text="${todayYesterdayDiff}"></h1>-->
-<!--                        <p class="lead" style="text-align:center">New cases reported since previous day</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
 
             <table class="table table-sm table-hover">
                 <tr>
                     <th style="text-align:center">County, State</th>
                     <th style="text-align:center">Total Cases Reported</th>
+                    <th style="text-align:center">New Cases Today</th>
                 </tr>
                 <tr th:each="data : ${locationData}">
                     <td style="text-align:center" th:text="${data.countyAndState}"></td>
                     <td style="text-align:center" th:text="${data.totalCasesReported}">0</td>
+                    <td style="text-align:center" th:text="${data.currentAndPrevDiff}">0</td>
                 </tr>
             </table>
         </div>
