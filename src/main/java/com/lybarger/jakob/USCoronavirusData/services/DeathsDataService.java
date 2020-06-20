@@ -45,7 +45,6 @@ public class DeathsDataService {
             deathLocationData.setCountyAndState(record.get("Combined_Key"));
             deathLocationData.setTotalDeaths(Integer.parseInt(record.get(record.size() - 1)));
             deathLocationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 1)));
-            System.out.println(deathLocationData);
             newData.add(deathLocationData);
         }
         this.allData = newData;
