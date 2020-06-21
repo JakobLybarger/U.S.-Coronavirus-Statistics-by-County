@@ -41,7 +41,7 @@
         <div class="container">
             <h1 style="text-align:center">U.S. Coronavirus Confirmed Cases by County</h1>
 
-            <div class="jumbotron">
+            <div class="jumbotron bg-dark text-white">
                 <h1 class="display-4" style="text-align:center" th:text="${totalNewCases}"></h1>
                 <p class="lead" style="text-align:center">Total reported cases as of today</p>
                 <hr class="my-4">
@@ -49,11 +49,11 @@
                 <p class="lead" style="text-align:center">New cases reported since previous day</p>
             </div>
 
-            <table class="table table-sm table-hover">
+            <table class="table table-sm table-hover table-dark">
                 <tr>
-                    <th style="text-align:center">County, State</th>
-                    <th style="text-align:center">Total Cases Reported</th>
-                    <th style="text-align:center">New Cases Today</th>
+                    <th style="text-align:center"><h4>County, State</h4></th>
+                    <th style="text-align:center"><h4>Total Cases Reported</h4></th>
+                    <th style="text-align:center"><h4>New Cases Today</h4></th>
                 </tr>
                 <tr th:each="data : ${locationData}">
                     <td style="text-align:center" th:text="${data.countyAndState}"></td>
@@ -63,4 +63,18 @@
             </table>
         </div>
     </body>
+
+    <style>
+        body {
+            background-image: url('coronavirus.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            color:white;
+        }
+
+        h1 {
+            color: white
+        }
+    </style>
 </html>
