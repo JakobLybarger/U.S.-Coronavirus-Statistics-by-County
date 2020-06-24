@@ -17,10 +17,9 @@ public class ConfirmedController {
 
     @GetMapping("/Cases")
     public String confirmedCases(Model model) {
-        List<ConfirmedLocationData> allData = virusDataService.getAllData();
-        int totalNewCases = allData.stream().mapToInt(ConfirmedLocationData::getTotalCasesReported).sum();
-        int todayYesterdayDiff = allData.stream().mapToInt(ConfirmedLocationData::getCurrentAndPrevDiff).sum();
-        System.out.println(totalNewCases);
+        List<ConfirmedLocationData> allData = virusDataService.getAllData(); // Populate a list of all of the ConfirmedLocationData objects
+        int totalNewCases = allData.stream().mapToInt(ConfirmedLocationData::getTotalCasesReported).sum(); // Calculate the total confirmed cases of all ConfirmedLocationData objects
+        int todayYesterdayDiff = allData.stream().mapToInt(ConfirmedLocationData::getCurrentAndPrevDiff).sum(); // Calculate the difference in total confirmed cases between two most recent days
         model.addAttribute("totalNewCases", totalNewCases);
         model.addAttribute("todayYesterdayDiff", todayYesterdayDiff);
         model.addAttribute("locationData", virusDataService.getAllData());

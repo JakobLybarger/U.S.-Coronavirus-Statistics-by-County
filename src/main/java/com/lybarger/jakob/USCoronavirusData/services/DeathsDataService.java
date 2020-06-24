@@ -19,6 +19,7 @@ import java.util.List;
 @Service
 public class DeathsDataService {
 
+    // URL of the csv file on GitHub
     private static final String DEATH_DATA = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv";
 
     private List<DeathLocationData> allData = new ArrayList<>();
@@ -28,7 +29,7 @@ public class DeathsDataService {
     }
 
     @PostConstruct
-    @Scheduled(cron = "* * 1 * * *")
+    @Scheduled(cron = "* * 1 * * *") // Update the web page once a day
     public void getDeathData() throws IOException, InterruptedException {
         List<DeathLocationData> newData = new ArrayList<>();
 
@@ -41,12 +42,12 @@ public class DeathsDataService {
         StringReader reader = new StringReader(response.body());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
         for(CSVRecord record : records) {
-            DeathLocationData deathLocationData = new DeathLocationData();
-            deathLocationData.setCountyAndState(record.get("Combined_Key"));
-            deathLocationData.setTotalDeaths(Integer.parseInt(record.get(record.size() - 1)));
-            deathLocationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 1)));
-            newData.add(deathLocationData);
+            DeathLocationData deathLocationData = new DeathLocationData(); // Instantiate DeathLocationData object to store information
+            deathLocationData.setCountyAndState(record.get("Combined_Key")); // Fetch the county and state
+            deathLocationData.setTotalDeaths(Integer.parseInt(record.get(record.size() - 1))); // Fetch the most recent total deaths as of today
+            deathLocationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 1))); // Fetch the second most recent total deaths as of yesterday
+            newData.add(deathLocationData); // Add the DeathLocationData object to local list
         }
-        this.allData = newData;
+        this.allData = newData; // Set global list equal to local list
     }
 }

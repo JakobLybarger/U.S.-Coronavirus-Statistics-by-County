@@ -19,6 +19,7 @@ import java.util.List;
 @Service
 public class ConfirmedCasesDataService {
 
+    // URL of the csv file on GitHub
     private static final String VIRUS_DATA = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv";
 
     private List<ConfirmedLocationData> allData = new ArrayList<>();
@@ -41,11 +42,11 @@ public class ConfirmedCasesDataService {
         StringReader reader = new StringReader(response.body());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
         for(CSVRecord record : records) {
-            ConfirmedLocationData locationData = new ConfirmedLocationData();
-            locationData.setCountyAndState(record.get("Combined_Key"));
-            locationData.setTotalCasesReported(Integer.parseInt(record.get(record.size() - 1)));
-            locationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 2)));
-            newData.add(locationData);
+            ConfirmedLocationData locationData = new ConfirmedLocationData(); // Instantiate the ConfirmedLocationData object to store information
+            locationData.setCountyAndState(record.get("Combined_Key")); // Fetch the county and state
+            locationData.setTotalCasesReported(Integer.parseInt(record.get(record.size() - 1))); // Fetch the most recent total confirmed cases
+            locationData.setCurrentAndPrevDiff(Integer.parseInt(record.get(record.size() - 2))); // Fetch the second most recent total confirmed cases
+            newData.add(locationData); // Add the ConfirmedLocationData object to local list
         }
         this.allData = newData; // Set the global list equal to the local list
     }

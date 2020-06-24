@@ -17,9 +17,9 @@ public class DeathsController {
 
     @GetMapping("/Deaths")
     public String confirmedDeathsController(Model model) {
-        List<DeathLocationData> allData = deathsDataService.getAllData();
-        int totalDeaths = allData.stream().mapToInt(DeathLocationData::getTotalDeaths).sum();
-        int prevAndCurDiff = allData.stream().mapToInt(DeathLocationData::getCurrentAndPrevDiff).sum();
+        List<DeathLocationData> allData = deathsDataService.getAllData(); // Populate a list of all of the DeathLocationData objects
+        int totalDeaths = allData.stream().mapToInt(DeathLocationData::getTotalDeaths).sum(); // Calculate the total deaths of all DeathLocationData objects
+        int prevAndCurDiff = allData.stream().mapToInt(DeathLocationData::getCurrentAndPrevDiff).sum(); // Calculate the difference in total deaths between the two most recent days
         model.addAttribute("totalDeaths", totalDeaths);
         model.addAttribute("prevAndCurDiff", prevAndCurDiff);
         model.addAttribute("deathData", deathsDataService.getAllData());
